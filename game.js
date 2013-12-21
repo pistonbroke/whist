@@ -245,6 +245,18 @@ function IncTrick(id)
 	}
 }
 
+function TricksOK(id)
+{
+	if ( $("#Tricks_"+id).is(":visible") )
+	{
+		var Trick = parseInt($('#Bid_'+id).val());
+		$("#Tricks_"+id).attr("value",Trick);
+		NewTrick(id);
+		$("#Bidding").text( '>' );
+		Play("button-7.wav");
+	}
+}
+
 function NewTrick(id)
 {
 	TotalTricks = 0;
@@ -302,7 +314,7 @@ function _GameTableRow( Index, PlayerName )
 		var i;
 		row = '<tr>';
 		// create the current dealer '*' cell and the player name cell
-		td = sprintf( "<td><span id='Dealing_%d' class='Dealers'> </span></td><td><span id='Plyr_%d' class='Plyrs' onClick='javascript:IncTrick(%d)' >%s</span></td>", Index, Index, Index, PlayerName );
+		td = sprintf( "<td><span id='Dealing_%d' class='Dealers'> </span></td><td><span id='Plyr_%d' class='Plyrs' onClick='javascript:TricksOK(%d)' >%s</span></td>", Index, Index, Index, PlayerName );
 		row = row + td;
 		// add the bids drop-down cell
 		td = sprintf("<td><select class='Bids' id='Bid_%d' onChange='javascript:NewBid(%d)'><option selected value = -1></option>",Index,Index);
