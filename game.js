@@ -96,6 +96,8 @@ function _LockBids( Index )
 		BidsState = true;
 		$(".Bids").hide();
 		$(".SavedBids").show();
+		$("#ClearBids").hide();
+		$("#TotalBids").show();
 	}
 	else 
 	{
@@ -110,6 +112,8 @@ function _UnlockBids( Index )
 		BidsState = false;
 		$(".Bids").show();
 		$(".SavedBids").hide();
+		$("#ClearBids").show();
+		$("#TotalBids").hide();
 	}	
 	else 
 	{
@@ -120,7 +124,20 @@ function _UnlockBids( Index )
 function _ToggleBidsLock()
 {
 	if ( BidsState ) _UnlockBids();
-	else _LockBids();
+	else 
+	{
+		_LockBids();
+		NewBid( DealerIndex );
+	}
+}
+
+function _ClearAllBids()
+{
+	$(".Bids").attr("value","-1");
+	$(".Bids").show();	
+	$("#TotalBids").text( '' );
+	$(".SavedBids").text( '' );
+	TotalBids = 0;
 }
 
 function _LockTrks()
@@ -142,16 +159,16 @@ function _UnlockTots()
 {
 	TotLokState = false;
 	$(".TotScore").attr( "readonly", TotLokState );
-	$(".TotScore").css('color', 'Black' )	
-	$(".TotScore").css('background-color', 'Yellow' )	
+	$(".TotScore").css('color', 'Black' );	
+	$(".TotScore").css('background-color', 'Yellow' );	
 }
 
 function LockTots()
 {
 	TotLokState = true;
 	$(".TotScore").attr( "readonly", TotLokState );
-	$(".TotScore").css('color', $("#Sub_1").css('color') )	
-	$(".TotScore").css('background-color', $("#Sub_1").css('background-color') )	
+	$(".TotScore").css('color', $("#Sub_1").css('color') );	
+	$(".TotScore").css('background-color', $("#Sub_1").css('background-color') );	
 }
 
 function _ToggleTotsLock( LockState )
@@ -161,14 +178,14 @@ function _ToggleTotsLock( LockState )
 	if ( TotLokState )
 	{
 		$(".TotScore").attr( "readonly", TotLokState );
-		$(".TotScore").css('color', $("#Sub_1").css('color') )	
-		$(".TotScore").css('background-color', $("#Sub_1").css('background-color') )	
+		$(".TotScore").css('color', $("#Sub_1").css('color') );	
+		$(".TotScore").css('background-color', $("#Sub_1").css('background-color') );	
 	}	
 	else
 	{
 		$(".TotScore").attr( "readonly", TotLokState );
-		$(".TotScore").css('color', 'Black' )	
-		$(".TotScore").css('background-color', 'Yellow' )	
+		$(".TotScore").css('color', 'Black' );	
+		$(".TotScore").css('background-color', 'Yellow' );	
 	}
 	TotLokState = ! TotLokState;
 }
@@ -190,45 +207,48 @@ function NewBid(id)
   			BidCnt++;
 		}
 	}
-	ShowDealerPrompt();
 	$("#SavedBid_"+id).text( $('#Bid_'+id).val() );
-	if ( id == preDealer() )
+	if ( BidsState )
 	{
-		if ( TotalBids > CardCount )
+		ShowDealerPrompt();
+		if ( id == preDealer() )
 		{
-			InfoLine = "Dealer can call anything"	
-		}
-		else
+			if ( TotalBids > CardCount )
+			{
+				InfoLine = "Dealer can call anything";	
+			}
+			else
+			{
+				InfoLine = sprintf( "Dealer cannot call %d", CardCount - TotalBids );	
+			}
+			$("#Bidding").text( ' ' + InfoLine + ' ' );
+		}	
+		else if ( id == DealerIndex )
 		{
-			InfoLine = sprintf( "Dealer cannot call %d", CardCount - TotalBids );	
+			_LockBids();
+			$("#UnlockBids").attr("disabled",false);
+			TotalBids += DealerBid;
+			$("#TotalBids").text( TotalBids );
+			if ( TotalBids > CardCount )
+			{
+				InfoLine = sprintf("Bids are %d over",TotalBids-CardCount);
+				_UnlockTrks();
+			}
+			else if ( TotalBids < CardCount )
+			{
+				InfoLine = sprintf("Bids are %d under",CardCount-TotalBids);
+				_UnlockTrks();
+			}
+			else
+			{
+				Play("computersaysno.wav");
+				InfoLine = sprintf("Dealer cannot call %d try again",CardCount - TotalBids);
+				_LockTrks();
+				_UnlockBids();
+				$("#UnlockBids").attr("disabled",true);
+			}
+			$("#Bidding").text( ' ' + InfoLine + ' ' );
 		}
-		$("#Bidding").text( ' ' + InfoLine + ' ' );
-	}	
-	else if ( id == DealerIndex )
-	{
-		_LockBids();
-		$("#UnlockBids").attr("disabled",false);
-		TotalBids += DealerBid;
-		$("#TotalBids").text( TotalBids );
-		if ( TotalBids > CardCount )
-		{
-			InfoLine = sprintf("Bids are %d over",TotalBids-CardCount);
-			_UnlockTrks();
-		}
-		else if ( TotalBids < CardCount )
-		{
-			InfoLine = sprintf("Bids are %d under",CardCount-TotalBids);
-			_UnlockTrks();
-		}
-		else
-		{
-			Play("computersaysno.wav");
-			InfoLine = sprintf("Dealer cannot call %d try again",CardCount - TotalBids);
-			_LockTrks();
-			_UnlockBids();
-			$("#UnlockBids").attr("disabled",true);
-		}
-		$("#Bidding").text( ' ' + InfoLine + ' ' );
 	}
 }
 
@@ -374,7 +394,7 @@ function _initGame( Players )
 		}
 		StatusRow = "<tr>";
 		StatusRow = StatusRow + "<td colspan=2><div id='Trumps'>....</div><button type='button' id='bStart' onClick='javascript:_startGame();'>Start</button></td>";
-		StatusRow = StatusRow + "<td><div id='TotalBids'>....</div></td><td><div id='TotalTricks'>....</div></td>";
+		StatusRow = StatusRow + "<td align='center'><div id='TotalBids'>....</div><button id='ClearBids' onClick='javascript:_ClearAllBids();'>CLR</button></td><td><div id='TotalTricks'>....</div></td>";
 		StatusRow = StatusRow + "<td colspan=2 align='center'><button type='button' id='bNext' onClick='javascript:_nextHand();'>Next Hand</button></td>";
 		StatusRow = StatusRow + "</tr>";
 		$('#GameTable tr:last').after( StatusRow );
@@ -392,6 +412,7 @@ function _initGame( Players )
 		$("#bStart").show();
 		$("#bNext").hide();
 		$("#Trumps").hide();
+		$("#ClearBids").hide();
 		$("#UnlockBids").attr("disabled",true);
 		$("#UnlockTrks").attr("disabled",true);
 		_initScores( Players );
