@@ -334,7 +334,7 @@ function _GameTableRow( Index, PlayerName )
 		var i;
 		row = '<tr>';
 		// create the current dealer '*' cell and the player name cell
-		td = sprintf( "<td><span id='Dealing_%d' class='Dealers'> </span></td><td><span id='Plyr_%d' class='Plyrs' onClick='javascript:TricksOK(%d)' >%s</span></td>", Index, Index, Index, PlayerName );
+		td = sprintf( "<td><span id='Dealing_%d' class='Dealers'> </span></td><td><span id='Plyr_%d' class='Plyrs' >%s</span></td>", Index, Index, PlayerName );
 		row = row + td;
 		// add the bids drop-down cell
 		td = sprintf("<td><select class='Bids' id='Bid_%d' onChange='javascript:NewBid(%d)'><option selected value = -1></option>",Index,Index);
@@ -344,7 +344,7 @@ function _GameTableRow( Index, PlayerName )
 			td = sprintf("<option value=%d>%d</option>",i,i);
 			row = row + td;	
 		}
-		td = sprintf("</select><div class='SavedBids' id='SavedBid_%d' style='font-size:1.5em; text-align:center;'></div></td>",Index);
+		td = sprintf("</select><div class='SavedBids' id='SavedBid_%d' style='font-size:1.5em; text-align:center;' onClick='javascript:TricksOK(%d)' ></div></td>",Index,Index);
 		row = row + td;
 		// add the tricks drop-down cell
 		td = sprintf("<td><select class='Tricks' id='Tricks_%d' onChange='javascript:NewTrick(%d)'><option selected value = -1></option>",Index,Index);
