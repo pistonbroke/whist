@@ -40,6 +40,7 @@
 		<script src="score.js" type="text/javascript"></script>
 
    		<script type="text/javascript">
+			    document.addEventListener("deviceready", onDeviceReady, false);
 		    //-----------------------------------------------------------------------------
    			// since this is the first bit of code outside a function i think it will run first - Init() ?
 		    $(function() {
@@ -47,6 +48,11 @@
 		        $( "#tabs" ).tabs( { disabled: [1,2] } ); 
 		        $( ".tabs" ).tabs({ heightStyle: "fill" });
 		    }); 
+			function onDeviceReady() {
+			    if(device.platform == "Android"){
+			        document.addEventListener("backbutton", onBackKeyDown, false);
+			    }
+			}
 		    //-----------------------------------------------------------------------------
 			$(document).ready(function() {
 		        $("#tabs").show();
@@ -63,9 +69,6 @@
 			    $("#UnlockTots"	).click(	function () { _ToggleTotsLock();			});
 			    $("#SaveScores"	).click(	function () { _SaveScores();				});
 			    $("#LoadScores"	).click(	function () { _LoadScores();				});
-			    if(device.platform == "Android"){
-			        document.addEventListener("backbutton", onBackKeyDown, false);
-			    }
 			});
 			function onBackKeyDown() {// Handle the back button
 			    navigator.notification.confirm(
