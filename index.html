@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>Nomination Whist Score Board (V1.13).</title>
+		<title>Nomination Whist Score Board (V1.14).</title>
 		
 		<meta charset="utf-8" />
 		<meta http-equiv="pragma" content="no-cache" />
@@ -30,6 +30,7 @@
 	   	-->
 	    <!-- <link  href="jquery-ui.css" rel="stylesheet" /> -->
 	    <link rel="stylesheet" href="trontastic.css" />
+	    <script src="phonegap.js" type="text/javascript"></script>
 	    <script src="jquery-1.8.3.min.js"></script>
 	    <script src="jquery-ui.min.js"></script>
 		<script src="fileio.js" type="text/javascript"></script>
@@ -40,7 +41,6 @@
 		<script src="score.js" type="text/javascript"></script>
 
    		<script type="text/javascript">
-			    document.addEventListener("deviceready", onDeviceReady, false);
 		    //-----------------------------------------------------------------------------
    			// since this is the first bit of code outside a function i think it will run first - Init() ?
 		    $(function() {
@@ -48,14 +48,11 @@
 		        $( "#tabs" ).tabs( { disabled: [1,2] } ); 
 		        $( ".tabs" ).tabs({ heightStyle: "fill" });
 		    }); 
-			function onDeviceReady() {
-			    if(device.platform == "Android"){
-			        document.addEventListener("backbutton", onBackKeyDown, false);
-			    }
-			}
 		    //-----------------------------------------------------------------------------
 			$(document).ready(function() {
 		        $("#tabs").show();
+		        console.log("PhoneGap is ready");
+		        document.addEventListener("backbutton", backKeyDown, true);
 		    	_initSuits();
 				$("#bInitSuits"	).click(	function ()	{ _initSuits();  				});
 				$("#bClrSuits"	).click(	function ()	{ _clearSuits(); 				});
@@ -70,20 +67,12 @@
 			    $("#SaveScores"	).click(	function () { _SaveScores();				});
 			    $("#LoadScores"	).click(	function () { _LoadScores();				});
 			});
-			function onBackKeyDown() {// Handle the back button
-			    navigator.notification.confirm(
-			            'Are you certain you want to close the app?', // message
-			            function( index ){
-			                if( index == 1 ){//look at the docs for this part
-			                    navigator.app.exitApp();
-			                }
-			            }, // callback to invoke with index of button pressed
-			            'Exit', // title
-			            'Yes,No' // buttonLabels
-			        );
-			}
-			
-		    //-----------------------------------------------------------------------------
+		    function backKeyDown() 
+		    {
+		        //navigator.app.exitApp(); // To exit the app!
+		        navigator.app.alert("Back key pressed !");
+		    }
+    		    //-----------------------------------------------------------------------------
 		</script>
 		<div id="tabs">
 			<ul>
@@ -106,7 +95,7 @@
 				<button type="button" id="bClrSuits" >Clear</button>
 				<button type="button" id="bUseSuits" >Accept</button>
 				<label for="autoSave">Enable Autosave</label><input id='autoSave' type='checkbox' />
-				<div style="text-align:right">V1.13 (Last updated 30.12.2013)</div>
+				<div style="text-align:right">V1.14 (Last updated 6.1.2014)</div>
 			</div>
 			<div id="players">
 				<textarea id="PlayerNames" rows="7" title="Player Names" style=" font-size : xx-large; "> </textarea>
