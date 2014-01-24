@@ -37,7 +37,8 @@ function ShowDealerPrompt()
 	var Info;
 	$("#TotalBids").text(TotalBids);
 	$("#TotalTricks").text(TotalTricks);
-	Info = sprintf("%s to deal %d cards (%s)",
+	Info = sprintf("Round %d: %s to deal %d cards (%s)",
+		HandIndex+1,
 		$("#Plyr_"+DealerIndex).text(),
 		CardCount,
 		TrumpList[TrumpsIndex]
@@ -80,6 +81,7 @@ function SetDealer( Index )
 		$(".Bids").attr("value","-1");
 		_LockTrks();
 		$("#bNext").attr("disabled",true);
+		$("#bNext").css('background-color','DarkGray');
 		_LockBids();
 		_UnlockBids( FirstCaller );
 	}
@@ -307,6 +309,7 @@ function NewTrick(id)
 		if ( TotalTricks == CardCount )
 		{
 			$("#bNext").attr("disabled",false);
+			$("#bNext").css('background-color','Lime');
 			$("#TotalTricks").css('background-color', $("#Trumps").css('background-color') );
 			InfoTxt = "Hand over";
 		}
@@ -434,6 +437,7 @@ function _startGame()
 		$("#GameTable").attr("disabled",false);
 		$("#bStart").hide();
 		$("#bNext").attr("disabled",true);
+		$("#bNext").css('background-color','DarkGray');
 		$("#bNext").show();
 		_LockTrks();
 		_LockBids();
