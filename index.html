@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"> 
 	<head>
-		<title>Nomination Whist Score Board (V1.15).</title>
+		<title>Nomination Whist Score Board (V1.17).</title>
 		
 		<meta charset="utf-8" />
 		<meta http-equiv="pragma" content="no-cache" />
 		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame Remove this if you use the .htaccess -->
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /> 
-		<meta name="title" content="Nomination Whist Score Board (V1.13)." />
+		<meta name="title" content="Nomination Whist Score Board (V1.17)." />
 		<meta name="author" content="Phil Towers" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		
@@ -54,7 +54,7 @@
 		        console.log("PhoneGap is ready");
 		        document.addEventListener("backbutton", backKeyDown, true);
 		    	_initSuits();
-				$("#bInitSuits"	).click(	function ()	{ _initSuits();  				});
+				$("#bInitSuits"	).click(	function ()	{ _DefaultSuits();  			});
 				$("#bClrSuits"	).click(	function ()	{ _clearSuits(); 				});
 				$(".suit_in_use").change(	function ()	{ _changeSuits( this ); 		});
 				$("#bUseSuits"	).click(	function ()	{ _useSuits(); _initPlayers(); 	});
@@ -94,8 +94,8 @@
 				<button type="button" id="bInitSuits" >Default</button>
 				<button type="button" id="bClrSuits" >Clear</button>
 				<button type="button" id="bUseSuits" >Accept</button>
-				<label for="autoSave">Enable Autosave</label><input id='autoSave' type='checkbox' />
-				<div style="text-align:right">V1.15 (Last updated 24.1.2014)</div>
+				<div hidden><label for="autoSave">Enable Autosave</label><input id='autoSave' type='checkbox' /></div>
+				<div style="text-align:right">V1.17 (Last updated 2.3.2014)</div>
 			</div>
 			<div id="players">
 				<textarea id="PlayerNames" rows="7" title="Player Names" style=" font-size : xx-large; "> </textarea>

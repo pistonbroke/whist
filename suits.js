@@ -11,11 +11,26 @@ function _initSuits()
 {
 	try
 	{
-		$("#autoSave").attr("checked",( self.location.hostname.indexOf("www") < 0 ));
+		var SuitLst = new Array();
+		var SuitCnt;
+		var SuitsStr;
+		SuitsStr = localStorage[ "SuitOrder" ];
+		// there may not be any data saved yet
+		if( typeof SuitsStr == 'undefined' || SuitsStr.length < 5 )
+		{
+			SuitsStr = "0,1,2,3,4,5";
+			localStorage[ "SuitOrder" ] = SuitsStr;
+		}
+		SuitLst = SuitsStr.split(",");
+		SuitCnt = SuitLst.length;
+		//$("#autoSave").attr("checked",( self.location.hostname.indexOf("www") < 0 ));
 		for ( var i = 1; i <= 5; i++ )
 		{
 			$('#siu_'+i).attr("checked",true);
-			$('#spos_'+i).text(i);
+			if ( SuitCnt != 6 )
+				$('#spos_'+i).text(i);
+			else
+				$('#spos_'+i).text(SuitLst[i]);
 		}
 		$("#status").text(self.location.hostname);
 	}
@@ -23,6 +38,12 @@ function _initSuits()
 	{
 		alert(e);
 	}
+}
+
+function _DefaultSuits()
+{
+	localStorage[ "SuitOrder" ] = '0,1,2,3,4,5';
+	_initSuits();	
 }
 
 function _clearSuits()
@@ -75,6 +96,7 @@ function _useSuits()
 {
 	try
 	{
+		var SuitList = new Array();
 		var SuitOrder;
     	$("#tabs").tabs( "enable" , 1 );
     	$("#tabs").tabs( "disable" , 3 );
@@ -100,6 +122,10 @@ function _useSuits()
     			}
     		}
     	}
+    	SuitList.push('0');
+    	for ( var i = 1; i <= 5; i++ )
+    		SuitList.push( parseInt($('#spos_'+i).text()) );
+    	localStorage[ "SuitOrder" ] = SuitList;
  	}
 	catch(e)
 	{

@@ -4,6 +4,7 @@
  * PJT
  */
 var PlayerCount;
+var db = openDatabase ("WhistScoreboard", "1.0", "Scores", 65535);
 
 function Array2String( arr )
 {
@@ -51,52 +52,63 @@ var tmpStr = '';
 	
 return (output);
 }
-    
+
+function _InitDB()
+{
+    //Check databases are supported
+    if(openDatabase){
+        //Open a database transaction
+        db.transaction(function(tx){
+            //Execute an SQL statement to create the table "tblDemo" 
+            //only if it doesn't already exist                
+            tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_Players ('
+                           + 'personId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
+                           + 'personName VARCHAR(20)'
+                           + ');',[],nullData,errorHandler);
+            tx.executeSql('DELETE FROM tbl_Players',[],nullData,errorHandler);
+            tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_Suits ('
+                           + 'suitId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
+                           + 'suitName VARCHAR(8)'
+                           + ');',[],nullData,errorHandler);
+            tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_GameCtrl ('
+                           + 'handId INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,'
+                           + 'played INTEGER,'
+                           + 'cardCount INTEGER,'
+                           + 'trumps VARCHAR(20)'
+                           + ');',[],nullData,errorHandler);
+            tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_Scores ('
+                           + 'handNumber INTEGER,'
+                           + 'personNumber INTEGER,'
+                           + 'bid INTEGER,'
+                           + 'tricks INTEGER,'
+                           + 'subTotal INTEGER'
+                           + ');',[],nullData,errorHandler);
+        });
+
+        //Open a new transaction
+        db.transaction(function(tx){
+            //Exexute an INSERT with the name, age and favourite colour, 
+            //we set values outside the SQL string for added security and 
+            //to prevent SQL injections, the values are represented with "?"
+            tx.executeSql('INSERT INTO tblDemo ('
+                           + 'personName, personAge, personColour)'
+                           + 'VALUES (?, ?, ?);'
+                           ,[txtName,intAge,txtColour],nullData,errorHandler);
+        });
+    }	
+} 
+   
 function _SaveScores( quiet )
 {
-	var csvText = toCSV( "#ScoreTable");
-	PutFile( csvText, 'scores.txt', "w" );
-	if ( quiet == undefined )
-	{
-		var audio = new Audio( "arcade.wav" );
-		audio.play();
-	}
 }
 
 function _LoadScores()
 {
-	var Row = Array();
-	var Rows = Array();
-	var Bids = Array();
-	var Tricks = Array();
-	var Scores = Array();
-	var Trumps, StoredScores;
-	StoredScores = GetFile("scores.txt");
-	Rows = StoredScores.split('\n');
-	Row = Rows[1].replace(/\\"/g, '').split(',');
-	Row.splice(0,1);
-	_initScores( Row );
-	for ( var i = 2; i < Rows.length; i++ )
-	{
-		Row = Rows[i].replace(/\\"/g, '').split(',');
-		Trumps = Row[0].replace(/\"/g, '');
-		Row.splice(0,1);
-		Bids.length = 0;
-		Tricks.length = 0;
-		Scores.length = 0;
-		for ( var j = 0; j < Row.length; j += 3 )
-		{
-			Bids.push( Row[j] );	
-			Tricks.push( Row[j+1] );	
-			Scores.push( Row[j+2] );	
-		}
-		_addScoreLine( Trumps, Bids, Tricks, Scores );
-	}
 }
 
 function _addScoreLine( Suit, Bids, Tricks, Scores, EndLine, Winner )
 {
-	var row = sprintf("<tr class='ScoreLine'><td>%s</td>",Suit);
+	var row = sprintf("<tr class='ScoreLine'><td>%s</td><td>%d</td>",Suit,HandIndex);
 	for ( var i = 0; i < Bids.length; i++ )
 	{
 		row = row + "<td>" + Bids[i] + "</td>";
@@ -117,12 +129,12 @@ function _initScores( Players )
 {
 	var i, row;
 	// create the main scoreboard title
-	row = sprintf("<td colspan='%d' align='center'><h4>Whist Score Board</h4></td>",1+(Players.length*3));
+	row = sprintf("<td colspan='%d' align='center'><h4>Whist Score Board</h4></td>",2+(Players.length*3));
 	$("#ScoresCaption").html(row);
 	// erase all last scores
 	$('#ScoreTable tr:gt(0)').remove();
 	// add in the players sub title
-	row = "<tr><td>Trumps</td>";
+	row = "<tr><td>Trumps</td><td>#</td>";
 	for ( i = 0; i < Players.length; i++ )
 	{
 		row = row + "<td colspan='3'>" + Players[i].replace(/\"/g, '') + "</td>";

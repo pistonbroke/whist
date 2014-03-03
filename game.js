@@ -541,7 +541,7 @@ var WinnerLst = new Array();
 		{
 			_addScoreLine( Suit, BidLst, TrkLst, ScoreLst );
 		}
-		if ( $("#autoSave").is(':checked') ) _SaveScores(0);
+		//if ( $("#autoSave").is(':checked') ) _SaveScores(0);
 		ShowDealerPrompt();
 		$(".SavedBids").text('');
 		$("#TotalBids").text('');
