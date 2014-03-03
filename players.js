@@ -13,7 +13,8 @@ function _initPlayers()
 	{
 	var names, id, row, NameText, cbInUse, PosnText;
 		
-		names = GetFile( 'players.txt' );	
+		//names = GetFile( 'players.txt' );	
+		names = localStorage["PlayerNames"];
 		if ( names != undefined )
 			PlayerList = names.split(',');
 		if ( PlayerList.length < 3 )
@@ -124,7 +125,8 @@ function _savePlayers()
 	$("#bEditPlyr").show();
 	PlayerList = $('#PlayerNames').val();
 	PlayersCSV = PlayerList.toString().replace( /\n/g, "," );
-	PutFile( PlayersCSV, 'players.txt', 'w' );
+	//PutFile( PlayersCSV, 'players.txt', 'w' );
+	localStorage["PlayerNames"] = PlayersCSV;
 	_initPlayers();
 }
 

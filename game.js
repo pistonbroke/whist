@@ -25,6 +25,7 @@ var TotLokState;
 // scores
 var TotalBids;
 var TotalTricks;
+var InvalidDealerTricks;
 
 function Play( AudioFile )
 {
@@ -221,7 +222,8 @@ function NewBid(id)
 			}
 			else
 			{
-				InfoLine = sprintf( "Dealer cannot call %d", CardCount - TotalBids );	
+				InvalidDealerTricks = CardCount - TotalBids;
+				InfoLine = sprintf( "Dealer cannot call %d", InvalidDealerTricks );	
 			}
 			$("#Bidding").text( ' ' + InfoLine + ' ' );
 		}	
@@ -244,9 +246,10 @@ function NewBid(id)
 			else
 			{
 				Play("computersaysno.wav");
-				InfoLine = sprintf("Dealer cannot call %d try again",CardCount - TotalBids);
+				InfoLine = sprintf("Dealer cannot call %d try again",InvalidDealerTricks);
 				_LockTrks();
 				_UnlockBids();
+				BidsState = true;
 				$("#UnlockBids").attr("disabled",true);
 			}
 			$("#Bidding").text( ' ' + InfoLine + ' ' );
