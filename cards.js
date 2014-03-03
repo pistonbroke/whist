@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------
 //
-function Score()
+function Score() /* testing git */
 {
 	this.Bid = 0;
 	this.Tricks = 0;
