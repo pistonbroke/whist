@@ -17,6 +17,7 @@
 		
 		<STYLE type="text/css">
 			.ui-tabs .ui-state-disabled { display: none; /* disabled tabs don't show up */ }
+			body { width : 100%; font-size : large; }
 			table { width : 100%; font-size : large; }
 		</STYLE>
 	</head>
@@ -82,7 +83,7 @@
 				<li><a href="#score"><span>Score</span></a></li>
 			</ul>
 			<div id="suits">
-				<table border="1"  style="font-size:large;" >
+				<table border="1" >
 					<tr align="center"><th>Suit</th><th colspan="2">Play Order</th></tr>
 					<tr><td><label for="siu_1" id="suit_1">Clubs</label></td><td><div id="spos_1">1</div></td><td><input id='siu_1' class='suit_in_use' type='checkbox'/></td></tr>
 					<tr><td><label for="siu_2" id="suit_2">Diamonds</label></td><td><div id="spos_2">1</div></td><td><input id='siu_2' class='suit_in_use' type='checkbox'/></td></tr>
@@ -98,7 +99,7 @@
 				<div style="text-align:right">V1.18 (Last updated 5.6.2014)</div>
 			</div>
 			<div id="players">
-				<textarea id="PlayerNames" rows="7" title="Player Names" style=" font-size : large; "> </textarea>
+				<textarea id="PlayerNames" rows="7" title="Player Names" > </textarea>
 				<br /><button type="button" id="bSavePlyr" >Save</button>
 				<table id="PlayerTable" border="1">
 					<tr id="r0"><th>Player</th><th>In Use</th><th>Order</th></tr> 
