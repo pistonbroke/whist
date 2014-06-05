@@ -343,7 +343,7 @@ function _GameTableRow( Index, PlayerName )
 		td = sprintf( "<td><span id='Dealing_%d' class='Dealers'> </span></td><td><span id='Plyr_%d' class='Plyrs' onClick='javascript:IncTrick(%d)'>%s</span></td>", Index, Index, Index, PlayerName );
 		row = row + td;
 		// add the bids drop-down cell
-		td = sprintf("<td><select class='Bids' id='Bid_%d' onChange='javascript:NewBid(%d)'><option selected value = -1></option>",Index,Index);
+		td = sprintf("<td><select class='Bids' id='Bid_%d' style='font-size:large; onChange='javascript:NewBid(%d)'><option selected value = -1></option>",Index,Index);
 		row = row + td;
 		for ( i = 0; i <= MaxCards; i++ )
 		{
@@ -353,7 +353,7 @@ function _GameTableRow( Index, PlayerName )
 		td = sprintf("</select><div class='SavedBids' id='SavedBid_%d' style='font-size:large; text-align:center;' onClick='javascript:TricksOK(%d)' ></div></td>",Index,Index);
 		row = row + td;
 		// add the tricks drop-down cell
-		td = sprintf("<td><select class='Tricks' id='Tricks_%d' onChange='javascript:NewTrick(%d)'><option selected value = -1></option>",Index,Index);
+		td = sprintf("<td><select class='Tricks' id='Tricks_%d' style='font-size:large; onChange='javascript:NewTrick(%d)'><option selected value = -1></option>",Index,Index);
 		row = row + td;
 		td = sprintf("<option value=%d>Yes</option>",-2);
 		row = row + td;	
