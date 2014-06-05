@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"> 
 	<head>
-		<title>Nomination Whist Score Board (V1.17).</title>
+		<title>Nomination Whist Score Board (V1.18).</title>
 		
 		<meta charset="utf-8" />
 		<meta http-equiv="pragma" content="no-cache" />
@@ -17,7 +17,18 @@
 		
 		<STYLE type="text/css">
 			.ui-tabs .ui-state-disabled { display: none; /* disabled tabs don't show up */ }
-			table { width : 100%; font-size : xx-large; }
+			table { width : 100%; font-size : x-large; }
+	        @media all {html {font-size: 24px;}}@media all and (max-width:2200px){html {font-size: 27px;}}@media all and (max-width:1800px){html {font-size: 26px;}}@media all and (max-width:1400px){html {font-size: 25px;}}@media all and (max-width:1000px){html {font-size: 24px;}}@media all and (max-width:960px){html {font-size: 23px;}}@media all and (max-width:920px){html {font-size: 22px;}}@media all and (max-width:880px){html {font-size: 21px;}}@media all and (max-width:840px){html {font-size: 20px;}}@media all and (max-width:800px){html {font-size: 19px;}}@media all and (max-width:760px){html {font-size: 18px;}}@media all and (max-width:720px){html {font-size: 17px;}}@media all and (max-width:680px){html {font-size: 16px;}}@media all and (max-width:640px){html {font-size: 15px;}}@media all and (max-width:600px){html {font-size: 14px;}}@media all and (max-width:560px){html {font-size: 13px;}}@media all and (max-width:520px){html {font-size: 12px;}}
+           	body 
+           	{
+		        max-width:1000px;
+		        min-width:520px;
+		        line-height:1.33em;
+		        margin:1em;
+		        background-color:#f7f7f7;
+		        font-family:Source Sans Pro;
+		        color:#361800;
+	        }
 		</STYLE>
 	</head>
 
@@ -30,9 +41,11 @@
 	   	-->
 	    <!-- <link  href="jquery-ui.css" rel="stylesheet" /> -->
 	    <link rel="stylesheet" href="trontastic.css" />
-	    <script src="phonegap.js" type="text/javascript"></script>
-	    <script src="jquery-1.8.3.min.js"></script>
+	    <script src="phonegap.0.9.5.js" type="text/javascript"></script>
+	    <script src="jquery-2.1.0.min.js"></script>
 	    <script src="jquery-ui.min.js"></script>
+	    <script src="speakGenerator.js" type="text/javascript"></script>
+	    <script src="speakClient.js" type="text/javascript"></script>
 		<script src="fileio.js" type="text/javascript"></script>
 		<script src="sprintf.js" type="text/javascript"></script>
 		<script src="suits.js" type="text/javascript"></script>
@@ -66,6 +79,7 @@
 			    $("#UnlockTots"	).click(	function () { _ToggleTotsLock();			});
 			    $("#SaveScores"	).click(	function () { _SaveScores();				});
 			    $("#LoadScores"	).click(	function () { _LoadScores();				});
+			    speak('this is phil ');
 			});
 		    function backKeyDown() 
 		    {
@@ -82,7 +96,7 @@
 				<li><a href="#score"><span>Score</span></a></li>
 			</ul>
 			<div id="suits">
-				<table border="1"  style="font-size:xx-large;" >
+				<table border="1"  style="font-size:x-large;" >
 					<tr align="center"><th>Suit</th><th colspan="2">Play Order</th></tr>
 					<tr><td><label for="siu_1" id="suit_1">Clubs</label></td><td><div id="spos_1">1</div></td><td><input id='siu_1' class='suit_in_use' type='checkbox'/></td></tr>
 					<tr><td><label for="siu_2" id="suit_2">Diamonds</label></td><td><div id="spos_2">1</div></td><td><input id='siu_2' class='suit_in_use' type='checkbox'/></td></tr>
@@ -95,10 +109,10 @@
 				<button type="button" id="bClrSuits" >Clear</button>
 				<button type="button" id="bUseSuits" >Accept</button>
 				<div hidden><label for="autoSave">Enable Autosave</label><input id='autoSave' type='checkbox' /></div>
-				<div style="text-align:right">V1.17 (Last updated 2.3.2014)</div>
+				<div style="text-align:right">V1.18 (Last updated 5.6.2014)</div>
 			</div>
 			<div id="players">
-				<textarea id="PlayerNames" rows="7" title="Player Names" style=" font-size : xx-large; "> </textarea>
+				<textarea id="PlayerNames" rows="7" title="Player Names" style=" font-size : x-large; "> </textarea>
 				<br /><button type="button" id="bSavePlyr" >Save</button>
 				<table id="PlayerTable" border="1">
 					<tr id="r0"><th>Player</th><th>In Use</th><th>Order</th></tr> 

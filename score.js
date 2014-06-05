@@ -4,7 +4,7 @@
  * PJT
  */
 var PlayerCount;
-var db = openDatabase ("WhistScoreboard", "1.0", "Scores", 65535);
+//var db = openDatabase ("WhistScoreboard", "1.0", "Scores", 65535);
 
 function Array2String( arr )
 {
