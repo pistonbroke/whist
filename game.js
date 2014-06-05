@@ -397,7 +397,7 @@ function _initGame( Players )
 		for ( var i = 0; i < MaxPlayers; i++ )
 		{
 			$('#GameTable tr:last').after( _GameTableRow( i, Players[i] ) );
-		}
+		} 
 		StatusRow = "<tr>";
 		StatusRow = StatusRow + "<td colspan=2><div id='Trumps'>....</div><button type='button' id='bStart' onClick='javascript:_startGame();'>Start</button></td>";
 		StatusRow = StatusRow + "<td align='center'><div id='TotalBids'>....</div><button id='ClearBids' onClick='javascript:_ClearAllBids();'>CLR</button></td><td><div id='TotalTricks'>....</div></td>";
@@ -405,7 +405,7 @@ function _initGame( Players )
 		StatusRow = StatusRow + "</tr>";
 		$('#GameTable tr:last').after( StatusRow );
 		StatusRow = "<tr>";
-		StatusRow = StatusRow + "<td colspan=6 style='color: black; font-size: 12pt; background-color: #FFFF00; '><span id='Bidding' style='font-size:xx-large;'>&nbsp;</span></td>";
+		StatusRow = StatusRow + "<td colspan=6 style='color: black; font-size: 12pt; background-color: #FFFF00; '><span id='Bidding' style='font-size:large;'>&nbsp;</span></td>";
 		StatusRow = StatusRow + "</tr>";
 		$('#GameTable tr:last').after( StatusRow );
 		TrumpsIndex = 10 - MaxCards;
