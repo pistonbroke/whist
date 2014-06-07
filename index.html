@@ -17,8 +17,8 @@
 		
 		<STYLE type="text/css">
 			.ui-tabs .ui-state-disabled { display: none; /* disabled tabs don't show up */ }
-			body { width : 100%; font-size : large; }
-			table { width : 100%; font-size : large; }
+			body { width : 100%; font-size : small; }
+			table { width : 100%; font-size : medium; }
 		</STYLE>
 	</head>
 
@@ -30,10 +30,12 @@
 	    <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
 	   	-->
 	    <!-- <link  href="jquery-ui.css" rel="stylesheet" /> -->
-	    <link rel="stylesheet" href="trontastic.css" />
+	    <link href="gentleSelect/jquery-gentleSelect.css" rel="stylesheet" type="text/css" />
+	    <link href="trontastic.css" rel="stylesheet" />
 	    <script src="cordova-3.0.0.js" type="text/javascript"></script>
-	    <script src="jquery-1.8.3.min.js"></script>
-	    <script src="jquery-ui.min.js"></script>
+	    <script src="jquery-1.8.3.min.js" type="text/javascript"></script>
+	    <script src="jquery-ui.min.js" type="text/javascript"></script>
+		<script src="gentleSelect/jquery-gentleSelect.js" type="text/javascript"></script>
 		<script src="fileio.js" type="text/javascript"></script>
 		<script src="sprintf.js" type="text/javascript"></script>
 		<script src="suits.js" type="text/javascript"></script>
@@ -67,12 +69,25 @@
 			    $("#UnlockTots"	).click(	function () { _ToggleTotsLock();			});
 			    $("#SaveScores"	).click(	function () { _SaveScores();				});
 			    $("#LoadScores"	).click(	function () { _LoadScores();				});
+		        /*$('#cph').gentleSelect({ 
+		            columns: 1,
+		            itemWidth: 30
+		        });
+		        $('#Bids').gentleSelect({ 
+		            columns: 2,
+		            itemWidth: 30
+		        });
+		        $('#Tricks').gentleSelect({ 
+		            columns: 2,
+		            itemWidth: 30
+		        });*/
 			});
 		    function backKeyDown() 
 		    {
 		        //navigator.app.exitApp(); // To exit the app!
 		        navigator.app.alert("Back key pressed !");
 		    }
+		   
     		    //-----------------------------------------------------------------------------
 		</script>
 		<div id="tabs">

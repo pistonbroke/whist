@@ -35,7 +35,6 @@ function _initPlayers()
 			PosnText = sprintf("<td align='center'><span id='psn%d'></span></td>", i );
 			row = sprintf("<tr id='r%d'>%s%s%s</tr>", i, NameText, cbInUse, PosnText );
 			$('#PlayerTable tr:last').after( row );
-			$("#pn"+i).css('font-size:1em');
 		}
 		$("#cph").attr('value', 10 );
 		$("#bUsePlayers").attr("disabled",true);

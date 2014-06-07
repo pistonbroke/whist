@@ -350,7 +350,7 @@ function _GameTableRow( Index, PlayerName )
 			td = sprintf("<option value=%d>%d</option>",i,i);
 			row = row + td;	
 		}
-		td = sprintf("</select><div class='SavedBids' id='SavedBid_%d' style='font-size:1.5em; text-align:center;' onClick='javascript:TricksOK(%d)' ></div></td>",Index,Index);
+		td = sprintf("</select><div class='SavedBids' id='SavedBid_%d' style='text-align:center;' onClick='javascript:TricksOK(%d)' ></div></td>",Index,Index);
 		row = row + td;
 		// add the tricks drop-down cell
 		td = sprintf("<td><select class='Tricks' id='Tricks_%d' onChange='javascript:NewTrick(%d)'><option selected value = -1></option>",Index,Index);
@@ -405,9 +405,13 @@ function _initGame( Players )
 		StatusRow = StatusRow + "</tr>";
 		$('#GameTable tr:last').after( StatusRow );
 		StatusRow = "<tr>";
-		StatusRow = StatusRow + "<td colspan=6 style='color: black; font-size:1.2em; background-color: #FFFF00; '><span id='Bidding' style='font-size:1.2em;'>&nbsp;</span></td>";
+		StatusRow = StatusRow + "<td colspan=6 style='color: black; background-color: #FFFF00; '><span id='Bidding'>&nbsp;</span></td>";
 		StatusRow = StatusRow + "</tr>";
 		$('#GameTable tr:last').after( StatusRow );
+		
+		//$('#Bids').val(0).gentleSelect("update");
+		//$('#Tricks').val(0).gentleSelect("update");
+				
 		TrumpsIndex = 10 - MaxCards;
 		MaxHands = (((MaxCards - 4) * 2) + 1);
 		HandIndex = 0;
