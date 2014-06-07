@@ -5,6 +5,7 @@
  */
 
 var PlayerList = new Array();
+var PlayerOrder = new Array();
 
 
 function _initPlayers()
@@ -36,10 +37,27 @@ function _initPlayers()
 			row = sprintf("<tr id='r%d'>%s%s%s</tr>", i, NameText, cbInUse, PosnText );
 			$('#PlayerTable tr:last').after( row );
 		}
-		$("#cph").attr('value', 10 );
-		$("#bUsePlayers").attr("disabled",true);
-		$("#cph").attr("disabled",true);
 		$("#bSavePlyr").hide();
+		names = localStorage.getItem('usedPlayers') ;
+		if ( names )
+		{
+			PlayerOrder	= names.split(',');	
+			for ( var i = 0; i < PlayerOrder.length; i++ )
+			{
+				id = PlayerList.indexOf( PlayerOrder[i] );
+				if ( id++ >= 0 )
+				{
+					//$("#psn"+id).text(i+1);
+					$("#inuse"+id).attr("checked",true);
+					SlctPlayer( $("#inuse"+id) );				
+				}
+			}
+			//_usePlayers();
+			return;
+		}
+		$("#bUsePlayers").attr("disabled",true);
+		$("#cph").attr('value', 10 );
+		$("#cph").attr("disabled",true);
 	}
 	catch(e)
 	{
@@ -169,6 +187,7 @@ function _usePlayers()
     	$( "#players" ).hide();
     	$( "#game" ).show();
     	$( "#tabs" ).tabs( "option", "active", 2 );
+    	localStorage["usedPlayers"] = usedPlayers;
     	_initGame( PlayerList );
 	}
 	catch(e)

@@ -143,3 +143,7 @@ function _initScores( Players )
 	$('#ScoreTable tr:last').after( row );
 }
 
+function EndGame()
+{
+	localStorage.removeItem('usedPlayers');
+}

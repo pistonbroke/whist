@@ -69,6 +69,7 @@
 			    $("#UnlockTots"	).click(	function () { _ToggleTotsLock();			});
 			    $("#SaveScores"	).click(	function () { _SaveScores();				});
 			    $("#LoadScores"	).click(	function () { _LoadScores();				});
+			    $("#GameOver"	).click(	function () { EndGame();					});
 		        /*$('#cph').gentleSelect({ 
 		            columns: 1,
 		            itemWidth: 30
@@ -152,6 +153,7 @@
 				</table><br />
 				<button id="SaveScores" align="right">Save</button>
 				<button id="LoadScores" align="right">Load</button>
+				<button id="GameOver" align="right">Game Over</button>
 			</div>
 			<div id="status">.</div>
 		</div>

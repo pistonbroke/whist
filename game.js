@@ -27,6 +27,16 @@ var TotalBids;
 var TotalTricks;
 var InvalidDealerTricks;
 
+function SaveGame()
+{
+	
+}
+
+function RestoreGame()
+{
+	
+}
+
 function Play( AudioFile )
 {
 	var audio = new Audio( AudioFile );
