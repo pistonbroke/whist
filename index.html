@@ -48,7 +48,7 @@
    			// since this is the first bit of code outside a function i think it will run first - Init() ?
 		    $(function() {
 				$( "#tabs" ).tabs();
-		        $( "#tabs" ).tabs( { disabled: [1,2] } ); 
+		        $( "#tabs" ).tabs( { disabled: [1,2,3] } ); 
 		        $( ".tabs" ).tabs({ heightStyle: "fill" });
 		    }); 
 		    //-----------------------------------------------------------------------------
@@ -61,6 +61,7 @@
 				$("#bClrSuits"	).click(	function ()	{ _clearSuits(); 				});
 				$(".suit_in_use").change(	function ()	{ _changeSuits( this ); 		});
 				$("#bUseSuits"	).click(	function ()	{ _useSuits(); _initPlayers(); 	});
+			    $("#bContinue"	).click(	function () { _Recover();					});
 			    $("#bEditPlyr"	).click(	function () { _editPlayers();				});
 			    $("#bSavePlyr"	).click(	function () { _savePlayers();				});
 			    $("#bClrPlayers").click(	function () { _clearPlayers();				});
@@ -111,6 +112,7 @@
 				<button type="button" id="bInitSuits" >Default</button>
 				<button type="button" id="bClrSuits" >Clear</button>
 				<button type="button" id="bUseSuits" >Accept</button>
+				<button type="button" id="bContinue" >Recover</button>
 				<div hidden><label for="autoSave">Enable Autosave</label><input id='autoSave' type='checkbox' /></div>
 				<div style="text-align:right">V1.18 (Last updated 5.6.2014)</div>
 			</div>

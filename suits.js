@@ -92,16 +92,26 @@ function _changeSuits( CheckBox )
 	}
 }
 
+function _Recover()
+{
+	try
+	{
+		$("#tabs" ).tabs( { disabled: [0,1,3] } );
+    	$("#tabs").tabs( "option", "active", 2 );
+	}
+	catch(e)
+	{
+		alert(e);
+	}
+}
+
 function _useSuits()
 {
 	try
 	{
 		var SuitList = new Array();
 		var SuitOrder;
-    	$("#tabs").tabs( "enable" , 1 );
-    	$("#tabs").tabs( "disable" , 3 );
-    	$("#suits").hide();
-    	$("#players").show();
+		$("#tabs" ).tabs( { disabled: [0,2,3] } );
     	$("#tabs").tabs( "option", "active", 1 );
     	$('#cph').attr( 'disabled', false );
     	$('#cph').attr( 'value', 10 );

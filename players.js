@@ -166,6 +166,8 @@ function _usePlayers()
 	var ndx, usedPlayers = new Array();
 	try
 	{
+		$("#tabs" ).tabs( { disabled: [0,1,3] } );
+    	$("#tabs").tabs( "option", "active", 2 );
 		for ( var a = 1; a <= $("#PlayerTable tr").length; a++ )
 		{
 			for ( var b = 1; b <= $("#PlayerTable tr").length; b++ )
